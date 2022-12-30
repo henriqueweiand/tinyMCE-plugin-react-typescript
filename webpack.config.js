@@ -1,11 +1,16 @@
 const webpack = require('webpack');
+const path = require('path');
+
+const tsDemoSourceFile = path.resolve('demo/ts/Demo.ts');
+const jsDemoDestFile = path.resolve('scratch/compiled/demo.js');
 
 module.exports = {
   mode: 'development',
-  entry: './src/main.ts',
+  entry: tsDemoSourceFile,
+  devtool: 'source-map',
   output: {
-    path: __dirname + '/dist',
-    filename: 'main.js',
+    filename: path.basename(jsDemoDestFile),
+    path: path.dirname(jsDemoDestFile)
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -13,17 +18,34 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        test: /\.js$/,
+        use: ['source-map-loader'],
+        enforce: 'pre'
       },
-    ],
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.ts$/,
+        use: [{
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+            experimentalWatchApi: true
+          }
+        }],
+      }
+    ]
   },
-  devServer: {
-    contentBase: './dist',
-    hot: true,
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
 };
