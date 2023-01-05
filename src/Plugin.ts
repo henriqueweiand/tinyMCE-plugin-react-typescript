@@ -36,6 +36,8 @@ const setup = (editor: Editor) => {
               editor.insertContent(`<img src="${dataUrl}" alt="${file.name}">`);
             };
             reader.readAsDataURL(file);
+
+            editor.windowManager.close();
           }
         },
         buttons: [
