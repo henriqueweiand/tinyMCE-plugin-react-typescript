@@ -8,4 +8,6 @@ tinymce.init({
   selector: "textarea.tinymce",
   plugins: "pluginId ",
   toolbar: "pluginId",
+  menubar: false,
+  apyKey: "",
 });
