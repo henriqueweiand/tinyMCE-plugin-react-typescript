@@ -22,23 +22,7 @@ const setup = (editor: Editor) => {
           ],
         },
         onAction: () => {
-          const input = document.getElementById(
-            "my-image-input"
-          ) as HTMLInputElement;
-
-          if (input.files && input.files[0]) {
-            const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const dataUrl = e.target.result;
-              const img = new Image();
-              img.src = dataUrl;
-              editor.insertContent(`<img src="${dataUrl}" alt="${file.name}">`);
-            };
-            reader.readAsDataURL(file);
-
-            editor.windowManager.close();
-          }
+          alert('on action');
         },
         buttons: [
           {
@@ -49,7 +33,7 @@ const setup = (editor: Editor) => {
         ],
       });
 
-      setupReactApp(document.getElementById("pluginId-content"));
+      setupReactApp(document.getElementById("pluginId-content"), editor);
     },
   });
 
