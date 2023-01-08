@@ -1,11 +1,10 @@
 import { Editor } from 'tinymce';
 import * as React from 'react';
-// import './App.css';
-import styled from 'styled-components';
 
-const Title = styled.h1``;
+import Modal from './Modal';
 
-const MyPlugin = (props: { editor: Editor}) => {
+const MyPlugin = (props: { editor: Editor }) => {
+  const [modalStauts, setModalStatus] = React.useState("block");
   const { editor } = props;
 
   const saveImage = () => {
@@ -23,21 +22,21 @@ const MyPlugin = (props: { editor: Editor}) => {
         editor.insertContent(`<img src="${dataUrl}" alt="${file.name}">`);
       };
       reader.readAsDataURL(file);
-
-      editor.windowManager.close();
     }
+
+    setModalStatus("none");
   }
 
   return (
-      <>
-        <Title>
+      <Modal display={modalStauts}>
+        <h3>
           modal with reactjs
-        </Title>
+        </h3>
 
         <input type="file" accept="image/*" id="my-image-input"></input>
 
-        <button type="button" onClick={saveImage}>Salvar</button>
-      </>
+        <button type="button" onClick={saveImage}>Ok</button>
+      </Modal>
   );
 };
 
