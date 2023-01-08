@@ -1,47 +1,37 @@
 import { Editor, TinyMCE } from "tinymce";
-import { setupReactApp } from "./application/App";
+import { setupReactApp, removeReactApp } from "./application/App";
+import config from "./config";
 
 declare const tinymce: TinyMCE;
 
 const setup = (editor: Editor) => {
   const element = document.createElement("div");
-  element.setAttribute("id", "my-plugin");
+  element.setAttribute("id", config.pluginId);
 
-  editor.ui.registry.addButton("pluginId", {
-    text: "My button",
+  editor.ui.registry.addButton(config.pluginId, {
+    text: config.pluginButtonText,
     onAction: function () {
-      editor.windowManager.open({
-        title: "Plugin Title",
-        body: {
-          type: "panel",
-          items: [
-            {
-              type: "htmlpanel",
-              html: '<div id="pluginId-content">loading</div>',
-            },
-          ],
-        },
-        onAction: () => {
-          alert('on action');
-        },
-        buttons: [
-          {
-            type: "custom",
-            text: "Ok",
-            primary: true,
-          },
-        ],
-      });
+      var pluginContentDiv = document.getElementById(config.pluginContentDiv);
 
-      setupReactApp(document.getElementById("pluginId-content"), editor);
+      if (!pluginContentDiv) {
+        var PluginContent = document.createElement("div");
+        PluginContent.setAttribute("id", config.pluginContentDiv);
+        document.body.appendChild(PluginContent);
+
+        pluginContentDiv = document.getElementById(config.pluginContentDiv);
+      } else {
+        removeReactApp(pluginContentDiv);
+      }
+
+      setupReactApp(pluginContentDiv, editor);
     },
   });
 
   return {
     getMetadata: () => {
       return {
-        name: "Custom plugin",
-        url: "https://example.com/docs/customplugin",
+        name: config.pluginName,
+        url: config.pluginURL,
       };
     },
     render: () => element,
@@ -49,5 +39,5 @@ const setup = (editor: Editor) => {
 };
 
 export default () => {
-  tinymce.PluginManager.add("pluginId", setup);
+  tinymce.PluginManager.add(config.pluginId, setup);
 };

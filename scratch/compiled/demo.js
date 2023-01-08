@@ -13,51 +13,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _application_App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./application/App */ "./src/application/App.tsx");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config */ "./src/config.ts");
+
 
 var setup = function (editor) {
   var element = document.createElement("div");
-  element.setAttribute("id", "my-plugin");
-  editor.ui.registry.addButton("pluginId", {
-    text: "My button",
+  element.setAttribute("id", _config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginId);
+  editor.ui.registry.addButton(_config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginId, {
+    text: _config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginButtonText,
     onAction: function () {
-      editor.windowManager.open({
-        title: "Plugin Title",
-        body: {
-          type: "panel",
-          items: [{
-            type: "htmlpanel",
-            html: '<div id="pluginId-content">loading</div>'
-          }]
-        },
-        onAction: function () {
-          var input = document.getElementById("my-image-input");
-          if (input.files && input.files[0]) {
-            var file_1 = input.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              var dataUrl = e.target.result;
-              var img = new Image();
-              img.src = dataUrl;
-              editor.insertContent("<img src=\"".concat(dataUrl, "\" alt=\"").concat(file_1.name, "\">"));
-            };
-            reader.readAsDataURL(file_1);
-            editor.windowManager.close();
-          }
-        },
-        buttons: [{
-          type: "custom",
-          text: "Ok",
-          primary: true
-        }]
-      });
-      (0,_application_App__WEBPACK_IMPORTED_MODULE_0__.setupReactApp)(document.getElementById("pluginId-content"));
+      var pluginContentDiv = document.getElementById(_config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginContentDiv);
+      if (!pluginContentDiv) {
+        var PluginContent = document.createElement("div");
+        PluginContent.setAttribute("id", _config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginContentDiv);
+        document.body.appendChild(PluginContent);
+        pluginContentDiv = document.getElementById(_config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginContentDiv);
+      } else {
+        (0,_application_App__WEBPACK_IMPORTED_MODULE_0__.removeReactApp)(pluginContentDiv);
+      }
+      (0,_application_App__WEBPACK_IMPORTED_MODULE_0__.setupReactApp)(pluginContentDiv, editor);
     }
   });
   return {
     getMetadata: function () {
       return {
-        name: "Custom plugin",
-        url: "https://example.com/docs/customplugin"
+        name: _config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginName,
+        url: _config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginURL
       };
     },
     render: function () {
@@ -66,7 +47,52 @@ var setup = function (editor) {
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
-  tinymce.PluginManager.add("pluginId", setup);
+  tinymce.PluginManager.add(_config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginId, setup);
+});
+
+/***/ }),
+
+/***/ "./src/application/components/Modal/styles.ts":
+/*!****************************************************!*\
+  !*** ./src/application/components/Modal/styles.ts ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Container": () => (/* binding */ Container),
+/* harmony export */   "Modal": () => (/* binding */ Modal)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+var Container = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(templateObject_1 || (templateObject_1 = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__makeTemplateObject)(["\n  display: ", ";\n  position: fixed;\n  z-index: 1;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n"], ["\n  display: ", ";\n  position: fixed;\n  z-index: 1;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n"])), function (props) {
+  return props.display;
+});
+var Modal = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(templateObject_2 || (templateObject_2 = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__makeTemplateObject)(["\n  position: relative;\n  border-radius: 15px;\n  background-color: #fefefe;\n  margin: auto;\n  padding: 10px;\n  border: 1px solid #888;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  animation-name: animatetop;\n  animation-duration: 0.4s;\n  top: 10%;\n  @media (max-width: 1080px) {\n    width: 60%;\n  }\n  @media (min-width: 1080px) {\n    width: 60%;\n  }\n  @media (max-width: 720px) {\n    width: 80%;\n  }\n  @keyframes animatetop {\n    from {\n      top: -300px;\n      opacity: 0;\n    }\n    to {\n      top: 10%;\n      opacity: 1;\n    }\n  }\n"], ["\n  position: relative;\n  border-radius: 15px;\n  background-color: #fefefe;\n  margin: auto;\n  padding: 10px;\n  border: 1px solid #888;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  animation-name: animatetop;\n  animation-duration: 0.4s;\n  top: 10%;\n  @media (max-width: 1080px) {\n    width: 60%;\n  }\n  @media (min-width: 1080px) {\n    width: 60%;\n  }\n  @media (max-width: 720px) {\n    width: 80%;\n  }\n  @keyframes animatetop {\n    from {\n      top: -300px;\n      opacity: 0;\n    }\n    to {\n      top: 10%;\n      opacity: 1;\n    }\n  }\n"])));
+var templateObject_1, templateObject_2;
+
+/***/ }),
+
+/***/ "./src/config.ts":
+/*!***********************!*\
+  !*** ./src/config.ts ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  pluginId: "ReactJSPluginDemo",
+  pluginContentDiv: "ReactJSPluginDemoContent",
+  pluginButtonText: "ReactJS Plugin",
+  pluginName: "ReactJS Plugin",
+  pluginURL: "https://github.com/henriqueweiand/tinyMCE-plugin-react-typescript"
 });
 
 /***/ }),
@@ -80,6 +106,7 @@ var setup = function (editor) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "removeReactApp": () => (/* binding */ removeReactApp),
 /* harmony export */   "setupReactApp": () => (/* binding */ setupReactApp)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -89,9 +116,43 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var setupReactApp = function (element) {
-  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_MyPlugin__WEBPACK_IMPORTED_MODULE_2__["default"], null), element);
+
+var setupReactApp = function (element, editor) {
+  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_MyPlugin__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    editor: editor
+  }), element);
 };
+var removeReactApp = function (element) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.unmountComponentAtNode(element);
+};
+
+/***/ }),
+
+/***/ "./src/application/components/Modal/index.tsx":
+/*!****************************************************!*\
+  !*** ./src/application/components/Modal/index.tsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles */ "./src/application/components/Modal/styles.ts");
+
+
+var Modal = function (_a) {
+  var children = _a.children,
+    _b = _a.display,
+    display = _b === void 0 ? "none" : _b;
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.Container, {
+    display: display
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.Modal, null, children));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modal);
 
 /***/ }),
 
@@ -106,24 +167,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Modal */ "./src/application/components/Modal/index.tsx");
 
 
-// import './App.css';
-
-var Title = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].h1(templateObject_1 || (templateObject_1 = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__makeTemplateObject)(["\n  font-size: 1.5em;\n  text-align: center;\n  color: palevioletred;\n"], ["\n  font-size: 1.5em;\n  text-align: center;\n  color: palevioletred;\n"])));
-var MyPlugin = function () {
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(Title, null, "modal with reactjs"), react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+var MyPlugin = function (props) {
+  var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState("block"),
+    modalStauts = _a[0],
+    setModalStatus = _a[1];
+  var editor = props.editor;
+  var saveImage = function () {
+    var input = document.getElementById("my-image-input");
+    if (input.files && input.files[0]) {
+      var file_1 = input.files[0];
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var dataUrl = e.target.result;
+        var img = new Image();
+        img.src = dataUrl;
+        editor.insertContent("<img src=\"".concat(dataUrl, "\" alt=\"").concat(file_1.name, "\">"));
+      };
+      reader.readAsDataURL(file_1);
+    }
+    setModalStatus("none");
+  };
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    display: modalStauts
+  }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "modal with reactjs"), react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "file",
     accept: "image/*",
     id: "my-image-input"
-  }));
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    type: "button",
+    onClick: saveImage
+  }, "Ok"));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyPlugin);
-var templateObject_1;
 
 /***/ }),
 
@@ -35023,12 +35103,16 @@ var __webpack_exports__ = {};
   \*************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_Plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/Plugin */ "./src/Plugin.ts");
+/* harmony import */ var _src_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../src/config */ "./src/config.ts");
+
 
 (0,_src_Plugin__WEBPACK_IMPORTED_MODULE_0__["default"])();
 tinymce.init({
   selector: "textarea.tinymce",
-  plugins: "pluginId ",
-  toolbar: "pluginId"
+  plugins: _src_config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginId + " ",
+  toolbar: _src_config__WEBPACK_IMPORTED_MODULE_1__["default"].pluginId + " ",
+  menubar: false,
+  apyKey: ""
 });
 })();
 

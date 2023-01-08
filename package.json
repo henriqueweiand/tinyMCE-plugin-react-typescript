@@ -4,9 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "-": "^0.0.1",
     "@tinymce/tinymce-react": "^4.2.0",
-    "D": "^1.0.0",
     "mini-css-extract-plugin": "^2.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,7 +24,6 @@
     "parcel-bundler": "^1.12.5",
     "sass-loader": "^13.2.0",
     "source-map-loader": "^4.0.1",
-    "style-loader": "^3.3.1",
     "ts-loader": "^8.0.7",
     "tslib": "^2.4.1",
     "tslint-webpack-plugin": "^2.1.1",
@@ -47,9 +44,6 @@
     "CHANGELOG.txt",
     "LICENSE.txt"
   ],
-  "resolutions": {
-    "styled-components": "^5"
-  },
   "engines": { 
     "npm" : ">=8.19.1",
     "node" : ">=18.9.0"

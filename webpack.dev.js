@@ -6,11 +6,7 @@ const tsDemoSourceFile = path.resolve("demo/ts/Demo.ts");
 const jsDemoDestFile = path.resolve("scratch/compiled/demo.js");
 
 module.exports = {
-  plugins: [
-    new MiniCssExtractPlugin({
-      // Opções aqui...
-    }),
-  ],
+  plugins: [new MiniCssExtractPlugin({})],
   mode: "development",
   watch: true,
   entry: tsDemoSourceFile,
@@ -32,7 +28,6 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          // fallback to style-loader in development
           process.env.NODE_ENV !== "production"
             ? "style-loader"
             : MiniCssExtractPlugin.loader,
